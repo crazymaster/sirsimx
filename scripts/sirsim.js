@@ -124,6 +124,10 @@ let sketch = (p) => {
   */
   p.checkForRecovered = () => {
     ballsInfectionTime.forEach(ball => {
+      recoveryTimeInMillis =  Math.floor(p.randomGaussian(recoveryTimeInMillis, 900));
+      if (recoveryTimeInMillis < 0) {
+        recoveryTimeInMillis = 0;
+      }
       if (ball.time !== undefined &&
         (Date.now() - ball.time > recoveryTimeInMillis)) {
         ball.time = undefined;
