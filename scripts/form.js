@@ -16,6 +16,9 @@ vaccinationRange.addEventListener("change", changeSimParams());
 var effectivenessRange = document.getElementById('effectiveness');
 effectivenessRange.addEventListener("change", changeSimParams());
 
+var detectionRange = document.getElementById('detection');
+detectionRange.addEventListener("change", changeSimParams());
+
 var restartbtn = document.getElementById('restartbtn');
 restartbtn.addEventListener("click", changeSimParams());
 
@@ -33,6 +36,7 @@ function changeSimParams(resetToDefault) {
       $('#spactval').html(document.getElementById('speed').value);
       $('#vcactval').html(document.getElementById('vaccination').value);
       $('#effecactval').html(document.getElementById('effectiveness').value);
+      $('#detectval').html(document.getElementById('detection').value);
     }
     return () => {
       const defaultValues = sirsim.getDefaultValues();
@@ -42,6 +46,7 @@ function changeSimParams(resetToDefault) {
       speedRange.value = defaultValues.speed;
       vaccinationRange.value = defaultValues.vaccination;
       effectivenessRange.value = defaultValues.effectiveness;
+      detectionRange.value = defaultValues.detection;
       sirsim.reset();
       updateRangeValues();
     }
@@ -59,6 +64,7 @@ function changeSimParams(resetToDefault) {
       let speed = parseFloat(speedRange.value);
       let vaccination = parseFloat(vaccinationRange.value) / 100.0;
       let effectiveness = parseFloat(effectivenessRange.value) / 100.0;
+      let detection = parseFloat(detectionRange.value);
 
       if (psize >= 10 && psize <= 500) {
         arg.popsize = psize;
@@ -77,6 +83,9 @@ function changeSimParams(resetToDefault) {
       }
       if (typeof effectiveness !== "undefined") {
         arg.effectiveness = effectiveness;
+      }
+      if (typeof detection !== "undefined") {
+        arg.detection = detection;
       }
 
       if (prev_psize !== psize || prev_iprob !== iprob ||
@@ -101,6 +110,8 @@ $(function () {
   $("#vcmax").html(document.getElementById('vaccination').getAttribute('max'));
   $("#effecmin").html(document.getElementById('effectiveness').getAttribute('min'));
   $("#effecmax").html(document.getElementById('effectiveness').getAttribute('max'));
+  $("#dsmin").html(document.getElementById('detection').getAttribute('min'));
+  $("#dsmax").html(document.getElementById('detection').getAttribute('max'));
 
   $('#psactval').html(document.getElementById('popsize').value);
   $('#rtactval').html(document.getElementById('recoverytimeinmillis').value);
@@ -108,6 +119,7 @@ $(function () {
   $('#spactval').html(document.getElementById('speed').value);
   $('#vcactval').html(document.getElementById('vaccination').value);
   $('#effecactval').html(document.getElementById('effectiveness').value);
+  $('#detectval').html(document.getElementById('detection').value);
 
   popsize.addEventListener('change', (() => {
     $('#psactval').html(document.getElementById('popsize').value);
@@ -126,6 +138,9 @@ $(function () {
   }));
   effectivenessRange.addEventListener('change', (() => {
     $('#effecactval').html(document.getElementById('effectiveness').value);
+  }));
+  detectionRange.addEventListener('change', (() => {
+    $('#detectval').html(document.getElementById('detection').value);
   }));
 });
 

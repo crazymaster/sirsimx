@@ -202,6 +202,10 @@ input[type=range]::-webkit-slider-thumb {
   background: #aaaaff;
 }
 
+#detection::-webkit-slider-thumb {
+    background: #000000;
+}
+
 #speed::-webkit-slider-thumb {
     background: #ffff00;
 }

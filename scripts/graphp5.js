@@ -49,7 +49,8 @@ let graphSketch = (p) => {
       SUSCEPTIBLE: { r: 255, g: 255, b: 0 },
       INFECTIOUS: { r: 255, g: 0, b: 0 },
       RECOVERED: { r: 0, g: 255, b: 0 },
-      VACCINATED: { r: 128, g: 128, b: 255 }
+      VACCINATED: { r: 128, g: 128, b: 255 },
+      QUARANTINED: { r: 0, g: 0, b: 0 }
     };
     let prev_x = 0, prev_y = { SUSCEPTIBLE: sirsim.getNumberOfBalls() - sirsim.getNumberVaccinated(), INFECTIOUS: 0, RECOVERED: 0, VACCINATED: sirsim.getNumberVaccinated() }; // PREV was: SUSCEPTIBLE: 0
 

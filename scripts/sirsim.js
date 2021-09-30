@@ -36,6 +36,7 @@ let sketch = (p) => {
     2: '#ff0000',
     3: '#00ff00',
     4: '#8888ff',
+    5: '#000000',
   }
 
   //====== SIMULATION INTERNAL VARIABLES ======//
@@ -67,6 +68,7 @@ let sketch = (p) => {
     INFECTIOUS: 2,
     RECOVERED: 3,
     VACCINATED: 4,
+    QUARANTINED: 5,
   };
 
   /**
@@ -76,6 +78,7 @@ let sketch = (p) => {
    * @property {number} defaultValues.infectionProbability   - the probability of infect someone [0,1]
    * @property {number} defaultValues.speed   - how fast the doods move [1,5]
    * @property {number} defaultValues.vaccination   - percentage of doods vaccinated [0,100]
+   * @property {number} defaultValues.detection   -  detection success rate [0,1]
    */
   const defaultValues = {
     popsize: 300,
@@ -84,6 +87,7 @@ let sketch = (p) => {
     speed: 2,
     vaccination: 0.3,
     effectiveness: 0.9,
+    detection: 0.5,
   };
 
   //====== VARIABLE ACCESS METHODS ======//
@@ -190,6 +194,7 @@ let sketch = (p) => {
     speed = args?.speed ?? defaultValues.speed;
     vaccinationRate = args?.vaccination ?? defaultValues.vaccination;
     vaccinationEffectiveness = args?.effectiveness ?? defaultValues.effectiveness;
+    detectionSuccessRate = args?.detection ?? defaultValues.detection;
 
     // create the balls
     for (let i = 0; i < numBalls; i++) {
@@ -310,6 +315,15 @@ let sketch = (p) => {
       } else if (this.y - this.diameter / 2 < 0) {
         this.y = this.diameter / 2;
         this.vy *= -1;
+      }
+
+      this.checkForQuarantined();
+    }
+
+    checkForQuarantined() {
+      if (this.status === status.INFECTIOUS && fastRandom() <= detectionSuccessRate) {
+        this.lastStatus = this.status;
+        this.status = status.QUARANTINED;
       }
     }
 
